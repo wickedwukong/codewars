@@ -7,10 +7,9 @@ package solution
 
 object EqualSidesOfAnArray {
     fun findEvenIndex(arr: IntArray): Int {
-        val intList = arr.toList()
-        return intList.indices.find { index ->
-            val left = intList.subList(0, index).sum()
-            val right = intList.subList(index + 1, intList.size).sum()
+        return arr.indices.find { index ->
+            val left = arr.slice(0 until  index).sum()
+            val right = arr.slice(index + 1 until  arr.size ).sum()
 
             left == right
         } ?: -1
