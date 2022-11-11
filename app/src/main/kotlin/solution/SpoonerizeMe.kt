@@ -7,5 +7,21 @@ package solution
  */
 
 fun spoonerizeMe(words: String): String {
-    return words.split(" ").reversed().joinToString(" ")
+    val split = words.split(" ")
+    val firstWord = split.first()
+    val secondWord = split.last()
+
+    val firstWordLetters: List<Char> = firstWord.toCharArray().toList() //[a,c]
+
+    val secondWordLetters: List<Char> = secondWord.toCharArray().toList() //[b]
+
+    val firstLetterInFirstWord: Char = firstWordLetters.first() //a
+    val firstLetterInSecondWord: Char = secondWordLetters.first() //b
+
+
+    val swapped1stWord= firstWordLetters.drop(1).reversed().plus(firstLetterInSecondWord).reversed().joinToString("")
+    val swapped2ndWord = secondWordLetters.drop(1).reversed().plus(firstLetterInFirstWord).reversed().joinToString("")
+
+
+    return "$swapped1stWord $swapped2ndWord"
 }
