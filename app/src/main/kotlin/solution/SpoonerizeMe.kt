@@ -1,7 +1,5 @@
 package solution
 
-import kotlin.coroutines.coroutineContext
-
 /*
  * Spoonerize Me
  * 7 kyu
@@ -9,66 +7,23 @@ import kotlin.coroutines.coroutineContext
  */
 
 fun spoonerizeMe(words: String): String {
+    val (swappedFirstWord, swappedSecondWord) = swapFirstLetter(getFirstWord(words), getSecondWord(words))
 
-    val splitWords = words.split(" ")
-    val firstWord = splitWords.first()
-    val secondWord = splitWords.last()
+    return "$swappedFirstWord $swappedSecondWord"
+}
 
-    val firstWordChars = firstWord.toCharArray().toMutableList()
-    val secondWordChars = secondWord.toCharArray().toMutableList()
+private fun swapFirstLetter(firstWordChars: MutableList<Char>, secondWordChars: MutableList<Char>, ): Pair<String, String> {
+    val temp = firstWordChars[0]
 
-    val firstWordLetter = firstWordChars[0]
     firstWordChars[0] = secondWordChars[0]
-    secondWordChars[0] = firstWordLetter
+    secondWordChars[0] = temp
 
     val swappedFirstWord = firstWordChars.joinToString("")
     val swappedSecondWord = secondWordChars.joinToString("")
 
-    return "$swappedFirstWord $swappedSecondWord"
-
-
-
-
-
-
-//    val splitWords = words.split(" ") //["pot", "nicking"]
-//    val firstWord = splitWords.first() //"pot"
-//    val secondWord = splitWords.last()  //"nicking"
-//
-//    val firstWordLetters: List<Char> = firstWord.toCharArray().toList() //[p,o,t]
-//
-//    val secondWordLetters: List<Char> = secondWord.toCharArray().toList() //[n,i,c,k,i,n,g]
-//
-//    val firstLetterInFirstWord: Char = firstWordLetters.first() //p
-//
-//    val firstLetterInSecondWord: Char = secondWordLetters.first() //n
-//
-//
-//    val swapped1stWord= firstWordLetters.drop(1).reversed().plus(firstLetterInSecondWord).reversed().joinToString("")
-//    //[p,o,t] -> [o,t] -> [t,o] -> [t,o,n] -> [n,o,t] -> not
-//
-//    val swapped2ndWord = secondWordLetters.drop(1).reversed().plus(firstLetterInFirstWord).reversed().joinToString("")
-//    //[n,i,c,k,i,n,g] -> [i,c,k,i,n,g] -> [g,n,i,k,c,i] -> [g,n,i,k,c,i,p] -> [p,i,c,k,i,n,g] -> picking
-//
-//
-//    return "$swapped1stWord $swapped2ndWord" //not picking
+    return Pair(swappedFirstWord, swappedSecondWord)
 }
 
-fun main() {
-    val ned = "ned"
-    val xuemin = "xuemin"
+private fun getSecondWord(words: String) = words.split(" ").last().toCharArray().toMutableList()
+private fun getFirstWord(words: String) = words.split(" ").first().toCharArray().toMutableList()
 
-    val nedChars = ned.toCharArray().toMutableList() //[n,e,d]
-    val xueminChars = xuemin.toCharArray().toMutableList() //[x,u,e,m,i,n]
-
-    val firstWordLetter = nedChars[0]
-    nedChars[0] = xueminChars[0]
-    xueminChars[0] = firstWordLetter
-
-    println(nedChars) //[x,e,d]
-
-    println(xueminChars) //[x,u,e,m,i,n]
-
-
-
-}
