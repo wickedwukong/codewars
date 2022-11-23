@@ -7,21 +7,25 @@ package solution
  */
 
 fun spoonerizeMe(words: String): String {
-    val split = words.split(" ")
-    val firstWord = split.first()
-    val secondWord = split.last()
+    val splitWords = words.split(" ") //["pot", "nicking"]
+    val firstWord = splitWords.first() //"pot"
+    val secondWord = splitWords.last()  //"nicking"
 
-    val firstWordLetters: List<Char> = firstWord.toCharArray().toList() //[a,c]
+    val firstWordLetters: List<Char> = firstWord.toCharArray().toList() //[p,o,t]
 
-    val secondWordLetters: List<Char> = secondWord.toCharArray().toList() //[b]
+    val secondWordLetters: List<Char> = secondWord.toCharArray().toList() //[n,i,c,k,i,n,g]
 
-    val firstLetterInFirstWord: Char = firstWordLetters.first() //a
-    val firstLetterInSecondWord: Char = secondWordLetters.first() //b
+    val firstLetterInFirstWord: Char = firstWordLetters.first() //p
+
+    val firstLetterInSecondWord: Char = secondWordLetters.first() //n
 
 
     val swapped1stWord= firstWordLetters.drop(1).reversed().plus(firstLetterInSecondWord).reversed().joinToString("")
+    //[p,o,t] -> [o,t] -> [t,o] -> [t,o,n] -> [n,o,t] -> not
+
     val swapped2ndWord = secondWordLetters.drop(1).reversed().plus(firstLetterInFirstWord).reversed().joinToString("")
+    //[n,i,c,k,i,n,g] -> [i,c,k,i,n,g] -> [g,n,i,k,c,i] -> [g,n,i,k,c,i,p] -> [p,i,c,k,i,n,g] -> picking
 
 
-    return "$swapped1stWord $swapped2ndWord"
+    return "$swapped1stWord $swapped2ndWord" //not picking
 }

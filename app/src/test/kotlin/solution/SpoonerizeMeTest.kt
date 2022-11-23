@@ -9,4 +9,9 @@ class SpoonerizeMeTest {
         assertEquals("b a", spoonerizeMe("a b"))
         assertEquals("bc a", spoonerizeMe("ac b"), )
     }
+
+    @Test
+    fun spoonerizeLongerWords() {
+        assertEquals("pot nicking" , spoonerizeMe("not picking"))
+    }
 }
