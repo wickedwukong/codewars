@@ -10,6 +10,26 @@ import kotlin.coroutines.coroutineContext
 
 fun spoonerizeMe(words: String): String {
 
+    val splitWords = words.split(" ")
+    val firstWord = splitWords.first()
+    val secondWord = splitWords.last()
+
+    val firstWordChars = firstWord.toCharArray().toMutableList()
+    val secondWordChars = secondWord.toCharArray().toMutableList()
+
+    val firstWordLetter = firstWordChars[0]
+    firstWordChars[0] = secondWordChars[0]
+    secondWordChars[0] = firstWordLetter
+
+    val swappedFirstWord = firstWordChars.joinToString("")
+    val swappedSecondWord = secondWordChars.joinToString("")
+
+    return "$swappedFirstWord $swappedSecondWord"
+
+
+
+
+
 
 //    val splitWords = words.split(" ") //["pot", "nicking"]
 //    val firstWord = splitWords.first() //"pot"
