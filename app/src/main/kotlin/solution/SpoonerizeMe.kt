@@ -1,5 +1,7 @@
 package solution
 
+import kotlin.coroutines.coroutineContext
+
 /*
  * Spoonerize Me
  * 7 kyu
@@ -28,4 +30,25 @@ fun spoonerizeMe(words: String): String {
 
 
     return "$swapped1stWord $swapped2ndWord" //not picking
+}
+
+fun main() {
+    val ned = "ned"
+    val xuemin = "xuemin"
+
+    val nedChars = ned.toCharArray().toMutableList() //[n,e,d]
+    val xueminChars = xuemin.toCharArray().toMutableList() //[x,u,e,m,i,n]
+
+
+    nedChars[0] = 'x'
+
+    println(nedChars) //[x,e,d]
+
+    println(xueminChars) //[x,u,e,m,i,n]
+
+
+
+
+
+
 }
