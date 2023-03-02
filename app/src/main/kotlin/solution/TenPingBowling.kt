@@ -16,16 +16,15 @@ class TenPingBowling {
             frameString
                 .split(" ")
                 .map { frame ->
-                    if (frame == "X") {
-                        Strike
-                    } else if (frame.endsWith("/")) {
-                        Spare(frame.first().digitToInt())
-                    } else if (frame.startsWith("X")) {
-                        LastFrame(frame.toCharArray().map {
-                            if (it == 'X') 10 else it.digitToInt()
-                        })
-                    } else {
-                        IncompletePins(frame.first().digitToInt(), frame.last().digitToInt())
+                    when {
+                        frame == "X" -> Strike
+                        frame.endsWith("/") -> Spare(frame.first().digitToInt())
+                        frame.startsWith("X") ->
+                            LastFrame(frame.toCharArray().map {
+                                if (it == 'X') 10 else it.digitToInt()
+                            })
+
+                        else -> IncompletePins(frame.first().digitToInt(), frame.last().digitToInt())
                     }
                 }
 
