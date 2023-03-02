@@ -10,6 +10,14 @@ sealed interface Frame {
             get() = 10
         override val secondRoll = 10 - firstRoll
     }
+    data class LastFrame(val rolls: List<Int>) : Frame {
+        override val score: Int
+            get() = rolls.sum()
+        override val firstRoll: Int
+            get() = rolls.first()
+        override val secondRoll: Int?
+            get() = rolls.getOrNull(1)
+    }
 
     data class IncompletePins(override val firstRoll: Int, override val secondRoll: Int) : Frame {
 

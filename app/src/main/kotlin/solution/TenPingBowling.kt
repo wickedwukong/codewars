@@ -1,6 +1,7 @@
 package solution
 
 import solution.Frame.IncompletePins
+import solution.Frame.LastFrame
 import solution.Frame.Spare
 import solution.Frame.Strike
 
@@ -11,25 +12,31 @@ import solution.Frame.Strike
  */
 class TenPingBowling {
     fun score(frameString: String): Int {
-        val frames = frameString.split(" ").map { frame ->
-            if (frame == "X") {
-                Strike
-            } else if (frame.endsWith("/")) {
-                Spare(frame.first().digitToInt())
-            } else if (frame.startsWith("X")) {
-                Spare(frame.first().digitToInt())
-            } else {
-                IncompletePins(frame.first().digitToInt(), frame.last().digitToInt())
-            }
-        }
+        val frames =
+            frameString
+                .split(" ")
+                .map { frame ->
+                    if (frame == "X") {
+                        Strike
+                    } else if (frame.endsWith("/")) {
+                        Spare(frame.first().digitToInt())
+                    } else if (frame.startsWith("X")) {
+                        LastFrame(frame.toCharArray().map {
+                            if (it == 'X') 10 else it.digitToInt()
+                        })
+                    } else {
+                        IncompletePins(frame.first().digitToInt(), frame.last().digitToInt())
+                    }
+                }
 
         return frames.mapIndexed { index, frame ->
             fun nextRoll() = frames.getOrNull(index + 1)?.firstRoll ?: 0
             fun nextNextRoll() = frames.getOrNull(index + 1)?.secondRoll ?: frames.getOrNull(index + 2)?.firstRoll ?: 0
-                
+
             when (frame) {
                 is Strike -> frame.score + nextRoll() + nextNextRoll()
                 is Spare -> frame.score + nextRoll()
+                is LastFrame -> frame.score
                 else -> frame.score
             }
         }.sum()
