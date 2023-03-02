@@ -10,7 +10,7 @@ sealed interface Frame {
             get() = 10
         override val secondRoll = 10 - firstRoll
     }
-    data class LastFrame(val rolls: List<Int>) : Frame {
+    data class TwoRollFrameWithABonus(val rolls: List<Int>) : Frame {
         override val score: Int
             get() = rolls.sum()
         override val firstRoll: Int

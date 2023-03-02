@@ -1,7 +1,7 @@
 package solution
 
 import solution.Frame.IncompletePins
-import solution.Frame.LastFrame
+import solution.Frame.TwoRollFrameWithABonus
 import solution.Frame.Spare
 import solution.Frame.Strike
 
@@ -19,11 +19,11 @@ class TenPingBowling {
                     when {
                         frame == "X" -> Strike
                         frame.endsWith("/") -> Spare(frame.first().digitToInt())
-                        frame.startsWith("X") ->
-                            LastFrame(frame.toCharArray().map {
-                                if (it == 'X') 10 else it.digitToInt()
+                        frame.toCharArray().size == 3 -> {
+                            TwoRollFrameWithABonus(frame.toCharArray().mapIndexed { index, it ->
+                                if (it == 'X') 10 else if (it == '/') 10 - frame[index - 1].digitToInt() else it.digitToInt()
                             })
-
+                        }
                         else -> IncompletePins(frame.first().digitToInt(), frame.last().digitToInt())
                     }
                 }
@@ -35,7 +35,7 @@ class TenPingBowling {
             when (frame) {
                 is Strike -> frame.score + nextRoll() + nextNextRoll()
                 is Spare -> frame.score + nextRoll()
-                is LastFrame -> frame.score
+                is TwoRollFrameWithABonus -> frame.score
                 else -> frame.score
             }
         }.sum()

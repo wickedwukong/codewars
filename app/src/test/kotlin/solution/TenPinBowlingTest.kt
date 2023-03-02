@@ -23,5 +23,6 @@ class TenPinBowlingTest {
     @Test
     fun `basic spare`() {
         assertEquals(24, TenPingBowling().score("9/ 54"));
+        assertEquals(150, TenPingBowling().score("5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/5"));
     }
 }
