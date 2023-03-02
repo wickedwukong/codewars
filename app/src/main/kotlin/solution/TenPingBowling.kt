@@ -11,20 +11,20 @@ import solution.Frame.Strike
  * https://www.codewars.com/kata/5531abe4855bcc8d1f00004c/train/java
  */
 class TenPingBowling {
-    fun score(rawFrameInput: String): Int {
-        val frames = rawFrameInput.frames()
+    fun score(rawFrameInput: String): Int =
+        rawFrameInput
+            .frames()
+            .mapIndexed { index, frame ->
+                fun nextRoll() = rawFrameInput.frames().getOrNull(index + 1)?.firstRollScore ?: 0
+                fun nextNextRoll() = rawFrameInput.frames().getOrNull(index + 1)?.secondRollScore
+                    ?: rawFrameInput.frames().getOrNull(index + 2)?.firstRollScore ?: 0
 
-        return frames.mapIndexed { index, frame ->
-            fun nextRoll() = frames.getOrNull(index + 1)?.firstRollScore ?: 0
-            fun nextNextRoll() = frames.getOrNull(index + 1)?.secondRollScore ?: frames.getOrNull(index + 2)?.firstRollScore ?: 0
-
-            when (frame) {
-                is Strike -> frame.score + nextRoll() + nextNextRoll()
-                is Spare -> frame.score + nextRoll()
-                else -> frame.score
-            }
-        }.sum()
-    }
+                when (frame) {
+                    is Strike -> frame.score + nextRoll() + nextNextRoll()
+                    is Spare -> frame.score + nextRoll()
+                    else -> frame.score
+                }
+            }.sum()
 }
 
 private fun String.frames() = this
