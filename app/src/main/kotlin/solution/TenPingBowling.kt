@@ -11,8 +11,8 @@ import solution.Frame.Strike
  * https://www.codewars.com/kata/5531abe4855bcc8d1f00004c/train/java
  */
 class TenPingBowling {
-    fun score(frameString: String): Int {
-        val frames = frameString.toFrames()
+    fun score(rawFrameInput: String): Int {
+        val frames = rawFrameInput.frames()
 
         return frames.mapIndexed { index, frame ->
             fun nextRoll() = frames.getOrNull(index + 1)?.firstRollScore ?: 0
@@ -27,7 +27,7 @@ class TenPingBowling {
     }
 }
 
-private fun String.toFrames() = this
+private fun String.frames() = this
     .split(" ")
     .map { frame ->
         when {
