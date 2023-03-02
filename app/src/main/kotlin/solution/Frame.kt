@@ -2,35 +2,38 @@ package solution
 
 sealed interface Frame {
     val score: Int
-    val firstRoll: Int
-    val secondRoll: Int?
+    val firstRollScore: Int
+    val secondRollScore: Int?
 
-    data class Spare(override val firstRoll: Int) : Frame {
+    data class Spare(override val firstRollScore: Int) : Frame {
         override val score: Int
             get() = 10
-        override val secondRoll = 10 - firstRoll
+        override val secondRollScore = 10 - firstRollScore
     }
-    data class TwoRollFrameWithABonus(val rolls: List<Int>) : Frame {
+    data class LastFrameWithABonus(val rolls: List<Int>) : Frame {
+        init {
+            check(rolls.size == 3)
+        }
         override val score: Int
             get() = rolls.sum()
-        override val firstRoll: Int
+        override val firstRollScore: Int
             get() = rolls.first()
-        override val secondRoll: Int?
+        override val secondRollScore: Int?
             get() = rolls.getOrNull(1)
     }
 
-    data class IncompletePins(override val firstRoll: Int, override val secondRoll: Int) : Frame {
+    data class IncompletePins(override val firstRollScore: Int, override val secondRollScore: Int) : Frame {
 
         override val score: Int
-            get() = firstRoll + secondRoll
+            get() = firstRollScore + secondRollScore
     }
 
     object Strike : Frame {
         override val score: Int
             get() = 10
-        override val firstRoll: Int
+        override val firstRollScore: Int
             get() = 10
-        override val secondRoll: Int?
+        override val secondRollScore: Int?
             get() = null
     }
 }

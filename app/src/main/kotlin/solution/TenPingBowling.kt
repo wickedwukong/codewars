@@ -1,7 +1,7 @@
 package solution
 
 import solution.Frame.IncompletePins
-import solution.Frame.TwoRollFrameWithABonus
+import solution.Frame.LastFrameWithABonus
 import solution.Frame.Spare
 import solution.Frame.Strike
 
@@ -13,10 +13,10 @@ import solution.Frame.Strike
 class TenPingBowling {
     fun score(frameString: String): Int {
         val frames = frameString.toFrames()
-        
+
         return frames.mapIndexed { index, frame ->
-            fun nextRoll() = frames.getOrNull(index + 1)?.firstRoll ?: 0
-            fun nextNextRoll() = frames.getOrNull(index + 1)?.secondRoll ?: frames.getOrNull(index + 2)?.firstRoll ?: 0
+            fun nextRoll() = frames.getOrNull(index + 1)?.firstRollScore ?: 0
+            fun nextNextRoll() = frames.getOrNull(index + 1)?.secondRollScore ?: frames.getOrNull(index + 2)?.firstRollScore ?: 0
 
             when (frame) {
                 is Strike -> frame.score + nextRoll() + nextNextRoll()
@@ -34,7 +34,7 @@ private fun String.toFrames() = this
             frame == "X" -> Strike
             frame.endsWith("/") -> Spare(frame.first().digitToInt())
             frame.toCharArray().size == 3 -> {
-                TwoRollFrameWithABonus(frame.toCharArray().mapIndexed { index, it ->
+                LastFrameWithABonus(frame.toCharArray().mapIndexed { index, it ->
                     if (it == 'X') 10 else if (it == '/') 10 - frame[index - 1].digitToInt() else it.digitToInt()
                 })
             }
