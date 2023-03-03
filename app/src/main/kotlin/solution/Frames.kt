@@ -7,6 +7,7 @@ import solution.Frame.Strike
 
 internal fun String.frames() = this
     .split(" ")
+    .filter { it != "" }
     .map { frame ->
         when {
             frame == "X" -> Strike
