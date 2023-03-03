@@ -11,7 +11,7 @@ import solution.Frame.Strike
 
 fun tenPinBowlingScore(rawFrameInput: String): Int {
     val frames = rawFrameInput.frames()
-    
+
     return frames
         .mapIndexed { index, frame ->
             fun nextRollScore() = frames.getOrNull(index + 1)?.firstRollScore ?: 0

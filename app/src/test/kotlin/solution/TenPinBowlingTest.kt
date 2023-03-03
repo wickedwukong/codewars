@@ -5,7 +5,7 @@ import kotlin.test.assertEquals
 
 class TenPinBowlingTest {
     @Test
-    fun `ten pin bowling`() {
+    fun `codewars test`() {
         assertEquals(20, tenPinBowlingScore("11 11 11 11 11 11 11 11 11 11"))
         assertEquals(300, tenPinBowlingScore("X X X X X X X X X XXX"))
     }
@@ -17,7 +17,7 @@ class TenPinBowlingTest {
         assertEquals(30, tenPinBowlingScore("X X"))
     }
     @Test
-    fun `incomplete pins`() {
+    fun `frame of incomplete pins`() {
         assertEquals(26, tenPinBowlingScore("54 72 44"))
     }
     @Test
