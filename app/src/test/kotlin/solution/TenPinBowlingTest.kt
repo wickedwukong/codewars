@@ -11,7 +11,7 @@ class TenPinBowlingTest {
     }
 
     @Test
-    fun `no frames result in socre 0`() {
+    fun `no frames result in score 0`() {
         assertEquals(0, tenPinBowlingScore(""))
     }
 
